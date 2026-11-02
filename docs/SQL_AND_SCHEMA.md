@@ -52,7 +52,7 @@ flowchart LR
 
 ## 3. 월·주·분기별 집계에서 연도 간 반복 빈도까지
 
-[UNION ALL로 월·주·분기를 같은 구조에 모으고 RANK 계산](../batch/init/init-7-agg_vol.sql#L57-L109) → [CTE·sum(COUNT(*)) OVER로 연도별 상위 기간의 반복 빈도·비중과 순위를 계산](../batch/init/init-7-agg_vol.sql#L134-L241) → [공동 1위를 array_agg로 묶는 조회 view](../batch/init/init-7-agg_vol.sql#L264-L287)로 나눴습니다.
+[UNION ALL로 월·주·분기를 같은 구조에 모으고 RANK 계산](../batch/init/init-7-agg_vol.sql#L57-L109) → [CTE·sum(COUNT(*)) OVER로 연도별 기준 1위 기간의 반복 빈도·비중과 순위를 계산](../batch/init/init-7-agg_vol.sql#L134-L241) → [공동 1위를 array_agg로 묶는 조회 view](../batch/init/init-7-agg_vol.sql#L264-L287)로 나눴습니다. 평균·최댓값은 큰 순, 최솟값은 작은 순으로 각 기준의 1위를 정합니다.
 
 예를 들어 한 종목의 여러 해에서 특정 월이 거래량 상위에 반복되는지를 비교하는 데이터입니다. [Rust 집계 Step의 두 프로시저 호출](../batch/src/job/agg_vol/step_agg_vol.rs#L19-L31)과 [API DAO의 집계 view 조회](../site-api/src/dao/agg_vol_dao.rs#L15-L59)까지 연결되어 있습니다.
 

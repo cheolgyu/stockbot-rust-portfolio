@@ -127,9 +127,9 @@
     {
       "path": "README.md",
       "source_sha256": "318732b64a5640c6ce4cccdcbbfe2ded7b223f67c63f1997fecbff1122bd8d70",
-      "public_sha256": "889288a24e5b635421217b10adef79d1b97e0cdb842baf91649d2c1045bf6d6f",
+      "public_sha256": "64db67704c032d89c0fddbad10c1dc9dc74ec76308bb58e4f4dc4f49d2c0b014",
       "source_bytes": 8449,
-      "public_bytes": 4230,
+      "public_bytes": 4244,
       "rules": {
         "root_readme_replaced_for_review_copy": 1
       },
@@ -3996,7 +3996,7 @@
   "review_documentation": [
     {
       "path": "docs/SQL_AND_SCHEMA.md",
-      "sha256": "8d0efbfbe44577470071ec8f60bef4f5aacf20d6a0fdc872b0d930b9ebca8d73",
+      "sha256": "61d069e60619d187acf3a77bbb5111a2ef0712ccce95c5a2db7d4f7e318bc81f",
       "kind": "New review documentation; original implementation is linked, not rewritten."
     },
     {

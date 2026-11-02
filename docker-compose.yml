@@ -1,0 +1,75 @@
+version: "3.9" # optional since v1.27.0
+services:
+  batch:
+    container_name: "batch"
+    build:
+      context: .
+      dockerfile: ./df-batch.dockerfile
+      target: dev
+    volumes:
+      - cargo_home:/usr/local/cargo
+      - ./batch:/stockbot/batch
+      - ./batch_model:/stockbot/batch_model
+      - ./data:/stockbot/data
+
+    env_file:
+      - .env.dev.docker
+    depends_on:
+      - db
+    tty: true
+
+  site-api:
+    container_name: "api-watch"
+    build:
+      context: .
+      dockerfile: ./dev-dockerfile/docker-dev-site-api.dockerfile
+      target: dev
+    volumes:
+      - ./site-api:/stockbot/site-api
+      - ./site-common:/stockbot/site-common
+      - ./batch_model:/stockbot/batch_model
+      - ./utils:/stockbot/utils
+
+    env_file:
+      - .env.dev.docker
+    ports:
+      - "8081:8081"
+    depends_on:
+      - db
+    restart: always
+  # site:
+  #   container_name: "site-watch"
+  #   build:
+  #     context: .
+  #     dockerfile: ./site-api/dockerfile.dev
+  #   volumes:
+  #     - ./site-api:app
+  #   depends_on:
+  #     - db
+  db:
+    container_name: "stockbot_db_dev"
+    image: postgres:18.0
+    ports:
+      - "5432:5432"
+    environment:
+      TZ: Asia/Seoul
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD before local use}"
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+      PGDATA: /var/lib/postgresql/18/docker
+    volumes:
+      - pg-data:/var/lib/postgresql
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 512M
+        reservations:
+          cpus: "0.25"
+          memory: 128M
+
+volumes:
+  pg-data:
+  cargo_home:
+  batch_model:

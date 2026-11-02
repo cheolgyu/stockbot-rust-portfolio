@@ -1,0 +1,9 @@
+[Unit]
+Description=Stockbot  Batch APP Start script
+After=network.target
+
+[Service]
+ExecStart=/usr/local/stockbot-batch-start.sh
+
+[Install]
+WantedBy=default.target

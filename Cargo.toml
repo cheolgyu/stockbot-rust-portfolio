@@ -1,0 +1,23 @@
+[package]
+name = "stockbot"
+version = "0.1.0"
+edition = "2021"
+exclude = ["rm-model", "yew_test", "hello"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+cargo-watch = "8.4.0"
+
+[workspace]
+members = [
+    "tb_row",
+    "tb_row_derive",
+    "site",
+    "utils",
+    "batch",
+    "batch_model",
+    "batch_exe",
+    "site-api",
+    "batch_client",
+]

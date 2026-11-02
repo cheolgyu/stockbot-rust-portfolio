@@ -1,0 +1,75 @@
+[package]
+name = "batch"
+version = "0.1.0"
+edition = "2021"
+
+[profile.release]
+opt-level = 'z'   # Optimize for size
+lto = true        # Enable link-time optimization
+codegen-units = 1 # Reduce number of codegen units to increase optimizations
+panic = 'abort'   # Abort on panic
+strip = true      # Strip symbols from binary*
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+batch_model = { path = "../batch_model", package = "batch_model", features = [
+    "sqlx",
+] }
+batch_client = { path = "../batch_client", package = "batch_client" }
+utils = { path = "../utils", package = "utils", features = ["all"] }
+tracing = "0.1.37"
+tracing-subscriber = "0.3.16"
+
+sqlx = { version = "0.8.6", features = [
+    "runtime-tokio-rustls",
+    "postgres",
+    "macros",
+    "chrono",
+    "rust_decimal",
+    "bigdecimal",
+    "time",
+    "json",
+] }
+reqwest = { version = "0.12.23", features = ["json"] }
+
+bytes = "1"
+tokio = { version = "1.47.1", features = ["full"] }
+
+dotenvy = "0.15.7"
+dotenvy_macro = "0.15.7"
+
+serde = { version = "1.0.152", features = ["derive"] }
+serde_with = { version = "3.0.0", features = ["chrono_0_4"] }
+serde_json = { version = "1.0.91", features = ["raw_value"] }
+serde_repr = "0.1"
+
+chrono = { version = "0.4.20", features = ["serde"] }
+chrono-tz = "0.10.4"
+
+rust_decimal = { version = "1.26", features = ["serde-with-float", "maths"] }
+rust_decimal_macros = "1.26"
+
+error-chain = "0.12.4"
+
+async-trait = "0.1.57"
+calamine = "0.30.1"
+futures = "0.3.21"
+async-channel = "2.5.0"
+
+scraper = "0.24.0"
+urlencoding = "2.1.2"
+
+# https://github.com/cross-rs/cross/issues/229#issuecomment-597898074
+[target.'cfg(unix)'.dependencies]
+openssl = { version = '0.10', features = ["vendored"] }
+# reqwest = "0.11.18"
+# trust-dns-resolver = "0.22.0"
+
+[features]
+# default = ["reqwest/default-tls", "trust-dns-resolver/dns-over-native-tls"]
+# vendored-openssl = ["openssl/vendored"]
+# rustls = ["reqwest/rustls-tls", "trust-dns-resolver/dns-over-rustls"]
+
+#rustls = ["reqwest/rustls-tls", "trust-dns-resolver/dns-over-rustls"]
+vendored-openssl = ["openssl/vendored"]

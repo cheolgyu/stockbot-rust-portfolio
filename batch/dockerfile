@@ -1,0 +1,52 @@
+FROM arm64v8/ubuntu AS runer
+RUN apt update  \
+    && apt install --no-install-recommends -y \
+    pkg-config libssl-dev ca-certificates\
+    && apt-get clean  \
+    && rm -rf  /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+
+
+FROM 000000000000.dkr.ecr.ap-northeast-2.amazonaws.com/stockbot-base:latest-batch AS builder
+ARG SCCACHE_BUCKET
+ARG SCCACHE_S3_KEY_PREFIX
+ARG AWS_ACCESS_KEY_ID
+ARG AWS_SECRET_ACCESS_KEY
+ARG SCCACHE_REGION
+
+ENV SCCACHE_BUCKET=${SCCACHE_BUCKET}
+ENV SCCACHE_S3_KEY_PREFIX=${SCCACHE_S3_KEY_PREFIX}
+ENV AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+ENV AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+ENV SCCACHE_REGION=${SCCACHE_REGION}
+
+RUN export \
+    && sccache --version \
+    && rustc --version
+
+
+
+WORKDIR /stockbot
+COPY batch/src batch/src
+COPY batch/Cargo.toml batch/Cargo.toml
+COPY batch_model batch_model
+COPY batch_client batch_client
+COPY utils utils
+
+COPY .env.prod . 
+COPY .env.batch_plan-init .env.batch_plan
+
+WORKDIR /stockbot/batch
+RUN cargo build --release --verbose --target aarch64-unknown-linux-gnu --features vendored-openssl
+
+FROM runer
+
+WORKDIR /stockbot
+COPY --from=builder /stockbot/batch/target/aarch64-unknown-linux-gnu/release/batch . 
+COPY --from=builder /stockbot/.env.prod . 
+#.env.batch_plan는 docker run 하는 스크립트에서 넣어줌
+
+CMD [ "./batch" ]
+########################################################################################################
+
+

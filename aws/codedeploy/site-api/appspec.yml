@@ -1,0 +1,16 @@
+version: 0.0
+os: linux
+
+files:
+  - source: /
+    destination: /home/ubuntu/site-api
+permissions:
+  - object: /home/ubuntu/site-api
+    owner: ubuntu
+    group: ubuntu
+    mode: 755
+hooks:
+  AfterInstall:
+    - location: run.sh
+      timeout: 600
+      runas: root

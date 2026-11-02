@@ -1,0 +1,125 @@
+/* 
+    https://tailwindcss.com/docs/installation
+    npx tailwindcss-cli build -i ./src/css/tailwind.css -o ./tailwind_build.css
+    npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch
+*/
+
+/**
+ * This injects Tailwind's base styles and any base styles registered by
+ * plugins.
+ */
+@tailwind base;
+
+/**
+  * This injects Tailwind's component classes and any component classes
+  * registered by plugins.
+  */
+@tailwind components;
+
+/**
+  * This injects Tailwind's utility classes and any utility classes registered
+  * by plugins.
+  */
+@tailwind utilities;
+
+/**
+  * Use this directive to control where Tailwind injects the hover, focus,
+  * responsive, dark mode, and other variants of each class.
+  *
+  * If omitted, Tailwind will append these classes to the very end of
+  * your stylesheet by default.
+  */
+@tailwind variants;
+
+.col_cp {
+  background-color: azure;
+}
+
+.col_op {
+  background-color: gray;
+}
+
+.col_lp {
+  background-color: green;
+}
+
+.col_hp {
+  background-color: lightblue;
+}
+
+/*
+클래스 합치기
+*/
+@layer components {
+  body {
+    @apply text-xs;
+  }
+  .navbar {
+    @apply font-semibold;
+  }
+  .navbar_mobil {
+    @apply navbar text-xl top-0 left-0 w-64 bg-white  fixed h-full  ease-in-out transition-all duration-300 z-30 p-2;
+  }
+  .navbar_pc {
+    @apply navbar hidden md:flex  md:w-full text-sm mt-3;
+  }
+  .navbar_mobil > li {
+    @apply p-3;
+  }
+  .ul_col {
+    @apply list-none;
+  }
+  .ul_col > li {
+    @apply float-left text-sm	  p-2;
+  }
+  .ul_col > li > button {
+    @apply bg-stone-200 rounded-full  p-2;
+  }
+  .td_num {
+    @apply text-right;
+  }
+  a {
+    height: inherit;
+  }
+
+  .navbar > ul > li > a {
+    @apply hover:border-dotted hover:bg-blue-100;
+  }
+
+  .active {
+    @apply underline-offset-4    underline decoration-pink-950;
+  }
+
+  .paging-li > a {
+    @apply text-xs cursor-pointer py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75;
+  }
+
+  .paging-active > a {
+    @apply bg-blue-900;
+  }
+
+  table {
+    @apply border-collapse border border-slate-500;
+  }
+
+  td,
+  th {
+    @apply whitespace-nowrap;
+  }
+
+  th {
+    @apply border border-slate-600;
+  }
+
+  td {
+    @apply border border-slate-700 p-1;
+  }
+
+  tr {
+    @apply hover:bg-blue-300;
+  }
+
+  fieldset {
+    @apply p-2 border-solid border-2 border-blue-500 hover:border-dotted;
+  }
+}

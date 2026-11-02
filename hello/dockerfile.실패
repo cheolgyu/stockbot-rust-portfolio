@@ -1,0 +1,30 @@
+FROM rust:1.69 as builder
+# RUN apk add --no-cache musl-dev libressl-dev
+# RUN ls -alWORKDIR /stockbot
+WORKDIR /stockbot
+COPY hello hello
+RUN rustup target add aarch64-unknown-linux-gnu
+
+WORKDIR /stockbot/build
+WORKDIR /stockbot/hello
+
+# RUN --mount=type=cache,target=/usr/local/cargo/.crates.toml \
+#     --mount=type=cache,target=/usr/local/cargo/.crates2.json\
+#     --mount=type=cache,target=/usr/local/cargo/bin/ \
+#     --mount=type=cache,target=/usr/local/cargo/registry/index/ \
+#     --mount=type=cache,target=/usr/local/cargo/registry/cache/ \
+#     --mount=type=cache,target=/usr/local/cargo/git/db/ \
+#     --mount=type=cache,target=/stockbot/build 
+# RUN export RUSTFLAGS="-Ctarget-feature=+lse"    
+#RUN cargo build --release  --target-dir /stockbot/build 
+RUN cargo build --release   --verbose  --target=aarch64-unknown-linux-gnu
+
+RUN cd /stockbot/hello/target && ls -al
+RUN uname -m
+
+# FROM almalinux/arm64v8  as prod
+FROM arm64v8/ubuntu as prod
+COPY --from=builder /stockbot/hello/target/release/hello hello
+
+RUN uname -m
+CMD [ "./hello" ]

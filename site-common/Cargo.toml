@@ -1,0 +1,21 @@
+[package]
+name = "site-common"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+serde = { version = "1.0.152", features = ["derive"] }
+serde_with = { version = "3.0.0", features = ["chrono_0_4"] }
+serde_json = { version = "1.0.91", features = ["raw_value"] }
+serde_urlencoded = "0.7"
+chrono = { version = "0.4.20", features = ["serde"] }
+chrono-tz = "0.8.0"
+rust_decimal = { version = "1.26", features = ["serde-with-float", "maths"] }
+rust_decimal_macros = "1.26"
+serde_repr = "0.1"
+enclose = "1.1.8"
+utoipa = { version = "3", features = ["actix_extras"] }
+#
+#sqlx= { version = "0.6.2", features = ["runtime-actix-native-tls"] }

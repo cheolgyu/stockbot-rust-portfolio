@@ -1,0 +1,8 @@
+node_modules
+/target
+*.dockerfile
+compose.*.yaml
+data
+data2
+./data2/**
+**/target/**

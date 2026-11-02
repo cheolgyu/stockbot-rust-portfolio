@@ -1,0 +1,14 @@
+### STEP1. GET CODE _STATE
+### 리퀘스트 바디에 디테일, 상세 에 맞게 넣어준 후 step2의 url에 코드 넣어주면 반환해줌.
+POST  http://data.krx.co.kr/comm/fileDn/GenerateOTP/generate.cmd
+content-type: application/x-www-form-urlencoded
+
+mktId=ALL&share=1&csvxls_isNo=false&name=fileDown&url=dbms/MDC/STAT/standard/MDCSTAT02001
+###
+
+### STEP2. GET DATA WITH CODE
+POST  http://data.krx.co.kr/comm/fileDn/download_excel/download.cmd
+content-type: application/x-www-form-urlencoded
+
+code=SOQlbs0N2IlJSJuYri7MYZC2eiYX+kIfsrqAzOTMQMARtSksuLS7Bnxpl86F7dAOvXfGx9S2U5wgvoxsacATRRtmGtORI4WrGDmruVe6oXtCqUypoW0Lp6SAPP0PhVkgThCTcjIZNPI5lCTubZnhjio6AHXdxc45YVEhz4JdugGxioW0uQWcR8Z9ueLvJU0VvTCprTIXuXT9XxFb88awpQ==
+###

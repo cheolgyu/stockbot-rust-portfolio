@@ -1,0 +1,28 @@
+[package]
+name = "utils"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[features]
+default = []
+all = ["db", "env"]
+db = []
+env = []
+cmd = []
+
+[dependencies]
+dotenvy = "0.15.7"
+dotenvy_macro = "0.15.7"
+sqlx = { version = "0.8.6", features = [
+    "runtime-tokio-rustls",
+    "postgres",
+    "macros",
+    "chrono",
+    "rust_decimal",
+    "bigdecimal",
+    "time",
+    "json",
+] }
+tokio = { version = "1.27.0", features = ["full"] }
+log = "0.4"

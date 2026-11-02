@@ -1,0 +1,62 @@
+@hostname = localhost
+@port = 8001
+@prod_hostname = stockbot-api.example.invalid
+@prod_port = 80
+
+@host = {{hostname}}:{{port}}
+@contentType = application/json
+@baseUrl = http://{{host}}/api/v1
+######
+GET http://stockbot-api.example.invalid:80/api/v1/code/003780 
+content-type:  application/json 
+######
+GET http://{{host}}/ping
+
+#######################################################################################
+###         
+###         by code
+###
+#######################################################################################
+
+########################코드 : 코드 상세내역
+GET {{baseUrl}}/code/003780
+content-type: {{contentType}}
+########################코드/:코드/price  : 코드의 가격목록
+GET {{baseUrl}}/code/003780/price?code_id=31&page=1&size=10&sort=dt&desc=false
+content-type: {{contentType}}
+########################코드/:코드/bound : 코드의 바운드 목록
+GET {{baseUrl}}/code/003780/bound?line=CLOSE&code_id=13&page=1&size=10&sort=p1x&desc=false
+content-type: {{contentType}}
+########################코드/:코드/find :코드의 특정 find 목록
+GET {{baseUrl}}/code/003780/find?what=H&why=B00&code_id=1&page=1&size=10&sort=ORDER_NUM&desc=false
+content-type: {{contentType}}
+########################코드/:코드/volume
+GET {{baseUrl}}/code/003780/volume?code_id=13&obs_type=WeekMax&page=1&size=10&sort=CODE_ID&desc=false
+content-type: {{contentType}}
+
+#######################################################################################
+###         
+###         list
+###
+#######################################################################################
+
+GET {{baseUrl}}/bound?page_type=ViewBoardList&page=2&size=10&sort=cp_change_rate&desc=false&exchange=KOSPI%2CKOSDAQ%2CKONEX&search=&obs_type=MonthMax&obs_val=0
+content-type: {{contentType}}
+###
+GET {{baseUrl}}/utils/open_dt?exchange=KOSPI
+content-type: {{contentType}}
+###
+GET {{baseUrl}}/enum/exchanges
+content-type: {{contentType}}
+###
+GET {{baseUrl}}/find?exchange=KOSPI&search=&what=F&why=B00&page=1&size=10&sort=ORDER_NUM&desc=false
+content-type: {{contentType}}
+###
+GET {{baseUrl}}/code/003780
+content-type: {{contentType}}
+
+
+
+
+
+

@@ -1,0 +1,6 @@
+- t4g.small
+- cpu: 2 , arm64, 메모리 2, 스토리지8 
+- key : "~/.ssh/example.pem"
+- iam : travis-codedeploy-ec2
+- 보안그룹 : sg-072263df6cc835831 (launch-wizard-6)
+- 

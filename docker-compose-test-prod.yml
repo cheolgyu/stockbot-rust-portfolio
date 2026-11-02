@@ -1,0 +1,65 @@
+version: "3.9" # optional since v1.27.0
+services:
+  svc_batch:
+    container_name: "batch"
+    image: batch:latest
+    env_file:
+      - batch/.env.prod
+    volumes:
+      - ./data:/stockbot/data
+    depends_on:
+      - db
+    deploy:
+      resources:
+        limits:
+          cpus: "0.25"
+          memory: 128M
+
+  svc_site-api:
+    container_name: "site_api"
+    image: site_api:latest
+    env_file:
+      - site_api/.env.prod
+    ports:
+      - "8081:8081"
+    depends_on:
+      - db
+    deploy:
+      resources:
+        limits:
+          cpus: "0.20"
+          memory: 128M
+    # site:
+    #   container_name: "site-watch"
+    #   build:
+    #     context: .
+    #     dockerfile: ./site-api/dockerfile.dev
+    #   volumes:
+    #     - ./site-api:app
+    #   depends_on:
+    #     - db
+  db:
+    container_name: "stockbot_db"
+    image: postgres:14.5
+    ports:
+      - "5432:5432"
+    environment:
+      TZ: Asia/Seoul
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD before local use}"
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    restart: always
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 512M
+        reservations:
+          cpus: "0.25"
+          memory: 128M
+
+volumes:
+  pg-data:

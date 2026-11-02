@@ -1,0 +1,37 @@
+[package]
+name = "batch_exe"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+batch_model = { path = "../batch_model", package = "batch_model", features = [
+    "sqlx",
+] }
+batch_client = { path = "../batch_client", package = "batch_client" }
+serde_json = { version = "1.0.91", features = ["raw_value"] }
+
+utils = { path = "../utils", package = "utils", features = ["all"] }
+tracing = "0.1.41"
+tracing-subscriber = "0.3.20"
+chrono = { version = "0.4.20", features = ["serde"] }
+chrono-tz = "0.10.4"
+tokio = { version = "1.47.1", features = ["net", "macros"] }
+sqlx = { version = "0.8.6", features = ["postgres"] }
+reqwest = { version = "0.12.23", features = ["blocking", "json"] }
+dotenvy_macro = "0.15.7"
+
+# https://github.com/cross-rs/cross/issues/229#issuecomment-597898074
+[target.'cfg(unix)'.dependencies]
+openssl = { version = '0.10', features = ["vendored"] }
+# reqwest = "0.11.18"
+# trust-dns-resolver = "0.22.0"
+
+[features]
+# default = ["reqwest/default-tls", "trust-dns-resolver/dns-over-native-tls"]
+# vendored-openssl = ["openssl/vendored"]
+# rustls = ["reqwest/rustls-tls", "trust-dns-resolver/dns-over-rustls"]
+
+#rustls = ["reqwest/rustls-tls", "trust-dns-resolver/dns-over-rustls"]
+vendored-openssl = ["openssl/vendored"]

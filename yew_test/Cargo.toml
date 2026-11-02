@@ -1,0 +1,40 @@
+[package]
+name = "yew_test"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rm_model = { path = "../rm-model", package = "rm-model" }
+dotenvy_macro = "0.15.7"
+yew = { version = "0.20", features = ["csr"] }
+gloo = "0.8"
+gloo-net = "0.2"
+gloo-console = "0.2.3"
+
+log = "0.4.6"
+wasm-logger = "0.2.0"
+serde = { version = "1.0", features = ["derive"] }
+wasm-bindgen = "0.2"
+wasm-bindgen-futures = "0.4"
+yew-router = "0.17"
+serde_json = "1.0"
+gloo-utils = "0.1.6"
+serde_urlencoded = "0.7"
+
+
+[dependencies.web-sys]
+version = "0.3"
+features = [
+  "DomWindowResizeEventDetail",
+  "Headers",
+  "Request",
+  "RequestInit",
+  "RequestMode",
+  "Response",
+  "Window",
+  "CssStyleDeclaration",
+  "HtmlSelectElement",
+  "Crypto",
+]

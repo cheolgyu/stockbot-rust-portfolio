@@ -1,0 +1,46 @@
+[package]
+name = "batch_model"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[features]
+sqlx = ["dep:sqlx"]
+site = ["dep:serde_urlencoded"]
+
+[dependencies]
+#tb_row = { path = "../../tb_row/tb_row", package = "tb_row" }
+tb_row = "1.0"
+
+sqlx = { version = "0.8.6", features = [
+    "runtime-tokio-rustls",
+    "postgres",
+    "macros",
+    "chrono",
+    "rust_decimal",
+    "bigdecimal",
+    "time",
+    "json",
+], optional = true }
+
+serde_urlencoded = { version = "0.7", optional = true }
+
+serde = { version = "1.0.152", features = ["derive"] }
+serde_with = { version = "3.0.0", features = ["chrono_0_4"] }
+serde_json = { version = "1.0.91", features = ["raw_value"] }
+chrono = { version = "0.4.20", features = ["serde"] }
+chrono-tz = "0.10.4"
+rust_decimal = { version = "1.37.2", features = [
+    "serde-with-float",
+    "maths",
+    "serde-with-arbitrary-precision",
+] }
+rust_decimal_macros = "1.37.1"
+serde_repr = "0.1"
+
+
+utoipa = { version = "5.4.0", features = ["actix_extras","chrono","decimal"] }
+
+strum = "0.27.2"
+strum_macros = "0.27.2"

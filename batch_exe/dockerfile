@@ -1,0 +1,47 @@
+FROM arm64v8/ubuntu AS runer
+RUN apt update  \
+    && apt install --no-install-recommends -y \
+    pkg-config libssl-dev ca-certificates\
+    && apt-get clean  \
+    && rm -rf  /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+
+FROM 000000000000.dkr.ecr.ap-northeast-2.amazonaws.com/stockbot-base:latest-batch_exe AS base
+
+ARG SCCACHE_BUCKET
+ARG SCCACHE_S3_KEY_PREFIX
+ARG AWS_ACCESS_KEY_ID
+ARG AWS_SECRET_ACCESS_KEY
+ARG SCCACHE_REGION
+
+ENV SCCACHE_BUCKET=${SCCACHE_BUCKET}
+ENV SCCACHE_S3_KEY_PREFIX=${SCCACHE_S3_KEY_PREFIX}
+ENV AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+ENV AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+ENV SCCACHE_REGION=${SCCACHE_REGION}
+
+RUN export \
+    && sccache --version
+
+
+WORKDIR /stockbot
+COPY batch_exe batch_exe
+COPY batch_model batch_model
+COPY batch_client batch_client
+COPY utils utils
+
+COPY .env.prod . 
+COPY .env.batch_plan-init .env.batch_plan
+
+WORKDIR /stockbot/batch_exe
+
+RUN cargo build --release --verbose --target aarch64-unknown-linux-gnu --features vendored-openssl
+
+
+FROM arm64v8/ubuntu AS run
+WORKDIR /stockbot
+COPY --from=base /stockbot/batch_exe/target/aarch64-unknown-linux-gnu/release/batch_exe . 
+COPY --from=base /stockbot/.env.prod . 
+EXPOSE 81
+CMD [ "./batch_exe" ]
+

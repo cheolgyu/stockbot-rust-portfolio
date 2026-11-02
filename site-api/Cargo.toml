@@ -1,0 +1,53 @@
+[package]
+name = "site-api"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[profile.release]
+# opt-level = 'z'   # Optimize for size
+# lto = true        # Enable link-time optimization
+# codegen-units = 1 # Reduce number of codegen units to increase optimizations
+# panic = 'abort'   # Abort on panic
+# strip = true      # Strip symbols from binary*
+
+[dependencies]
+batch_model = { path = "../batch_model", package = "batch_model", features = [
+    "sqlx",
+    "site",
+] }
+utils = { path = "../utils", features = ["cmd", "env", "db"] }
+
+tracing = "0.1.37"
+tracing-subscriber = "0.3.20"
+
+error-chain = "0.12.4"
+
+env_logger = "0.11.8"
+actix-web = "4.3.1"
+actix-cors = "0.7.1"
+serde = { version = "1.0", features = ["derive"] }
+serde_with = "3.0.0"
+futures = "0.3.25"
+serde_urlencoded = "0.7.1"
+sqlx = { version = "0.8.6", features = [
+    "runtime-tokio-rustls",
+    "postgres",
+    "macros",
+    "chrono",
+    "rust_decimal",
+    "bigdecimal",
+    "time",
+    "json",
+] }
+utoipa = { version = "5.4.0", features = ["actix_extras"] }
+utoipa-swagger-ui = { version = "9.0.2", features = ["actix-web"] }
+serde_json = { version = "1.0.91", features = ["raw_value"] }
+
+chrono = { version = "0.4.20", features = ["serde"] }
+chrono-tz = "0.10.4"
+rust_decimal = { version = "1.26", features = [
+    "serde-with-float",
+    "maths",
+    "serde-with-arbitrary-precision",
+] }

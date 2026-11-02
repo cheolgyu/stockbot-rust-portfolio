@@ -1,0 +1,75 @@
+
+### 네이버 차트 에서 가격조회 . 조회한 가격이 다름.
+https://api.finance.naver.com/siseJson.naver?symbol=044480&requestType=1&startTime=20250801&endTime=20250901&timeframe=day
+
+
+### KRX PRICE 엑셀다운로드 
+### 조회 가능한 시작 기간은 1995-05-02 데이터.
+### 최대 조회 기간은 2년 미만임으로 -1일 해야함.
+# 파리미터 
+# bld=dbms/MDC/STAT/standard/MDCSTAT01701
+# locale=ko_KR
+# tboxisuCd_finder_stkisu0_0=37550L/DL이앤씨2우(전환)
+# isuCd=KR737550K029
+    # 검색한 종목의 표준코드
+# isuCd2=KR7005930003
+    # 검색전 표준코드? KR7005930003: 삼성전자 보통주 기본값
+# codeNmisuCd_finder_stkisu0_0=DL이앤씨2우(전환)
+# param1isuCd_finder_stkisu0_0=ALL
+# strtDd=20250916
+# endDd=20250924
+# adjStkPrc_check=Y
+    # 수정주가 적용 
+# adjStkPrc=2
+    # 수정주가 적용값 , 적용하면 2 안하면 1 
+# share=1
+    #주단위 1:주 2: 천주 3: 백만주
+# money=1
+    # 1: 원 2:천원 3: 백만원 4 :십억원
+# csvxls_isNo=false
+# name=fileDown
+# url=dbms/MDC/STAT/standard/MDCSTAT01701
+# 
+# tboxisuCd_finder_stkisu0_1 차이는 ?
+# 코스피 DL이앤씨2우(전환)  신형우선주 tboxisuCd_finder_stkisu0_3
+# 코넥스 211270/AP위성   보통주 tboxisuCd_finder_stkisu0_1 
+# 코스피 004415/서울식품우 구형우선주 tboxisuCd_finder_stkisu0_1
+# 코스닥 tboxisuCd_finder_stkisu0_1=311690/CJ 바이오사이언스
+# 
+POST https://data.krx.co.kr/comm/fileDn/GenerateOTP/generate.cmd
+content-type: application/x-www-form-urlencoded; charset=UTF-8
+
+locale=ko_KR&tboxisuCd_finder_stkisu0_1=001530/DI동일&isuCd=KR7001530005&isuCd2=KR7001530005&codeNmisuCd_finder_stkisu0_1=DI동일&param1isuCd_finder_stkisu0_1=ALL&strtDd=19950502&endDd=19970501&adjStkPrc_check=Y&adjStkPrc=2&share=1&money=1&csvxls_isNo=false&name=fileDown&url=dbms/MDC/STAT/standard/MDCSTAT01701
+###
+
+POST https://data.krx.co.kr/comm/fileDn/download_excel/download.cmd
+content-type: application/x-www-form-urlencoded
+
+code=/bf7sPY4CDhSXa6rJ15NYIitsUOJ3v1nmEN1IguonxwRtSksuLS7Bnxpl86F7dAOLBmklqtj8Qc/gCYt5OWSaRSZjie/DPxx05OlpeBxa0zXaSw1MeBk8qJlXEbjT+XnqQqHQsSF0H9fPawXEmvvjLMub5G+g0E8gvOdHF129+DZjRj/PyGpE+z9Ai58O0oE9ZWOMKKnoV/I+jpVxQ3Hx3VeDW2KOPg9kcHH49uFZ1Nj9V+A93e0XB59wrdC1+D8VtqZ6aV99PhG5+CRn1GDL6lEM15n+k/0ZU/5AGjPBgYcwpZPGfUA0UeacGDiBPDA9r2erlskm6+BGWUWkYQIkCS5GUlgf+uYZ2sLsHKgdxGrUQQTRNTrn/VzJ4Pw9GV67wUrZQQTkV4vWztS8+Qn/c2047k+rydvRkkd98N5rgTxCF1ZKKC54EybPGoUVBzM5Aal/PN8wQh8y2sWbmOtfFHQUcYAhVc+NxW1b3PpxrkawIiDOeMpu3AAgAd2yLAzBkFmB684M9aIrSfsprfS5rfjSAnOYS47oBMZZWWx5kyry3ApJW0crQfe/WdvdKeD
+
+### ################################################
+# locale=ko_KR&tboxisuCd_finder_stkisu0_1=37550L/DL이앤씨2우(전환)&isuCd=KR737550K029&isuCd2=KR7005930003&codeNmisuCd_finder_stkisu0_1=DL이앤씨2우(전환)&param1isuCd_finder_stkisu0_1=ALL&strtDd=19950502&endDd=19970501&adjStkPrc_check=Y&adjStkPrc=2&share=1&money=1&csvxls_isNo=false&name=fileDown&url=dbms/MDC/STAT/standard/MDCSTAT01701
+
+
+#
+POST https://data.krx.co.kr/comm/fileDn/GenerateOTP/generate.cmd
+content-type: application/x-www-form-urlencoded; charset=UTF-8
+
+locale=ko_KR&tboxisuCd_finder_stkisu0_1=37550L/DL이앤씨2우(전환)&isuCd=KR737550K029&isuCd2=KR7005930003&codeNmisuCd_finder_stkisu0_1=DL이앤씨2우(전환)&param1isuCd_finder_stkisu0_1=ALL&strtDd=20250916&endDd=20250924&adjStkPrc_check=Y&adjStkPrc=2&share=1&money=1&csvxls_isNo=false&name=fileDown&url=dbms/MDC/STAT/standard/MDCSTAT01701
+###
+
+POST https://data.krx.co.kr/comm/fileDn/download_excel/download.cmd
+content-type: application/x-www-form-urlencoded
+
+code=/bf7sPY4CDhSXa6rJ15NYOkv+V1YevJ9AU1QMnQt0dcRtSksuLS7Bnxpl86F7dAOLBmklqtj8Qc/gCYt5OWSaRSZjie/DPxx05OlpeBxa0zXaSw1MeBk8qJlXEbjT+XnqQqHQsSF0H9fPawXEmvvjLMub5G+g0E8gvOdHF129+A/LEVJb1odNyCwYWJIi41E1hloKjGJ/BEoMWzhL6WWLISYLYUGRRd47NSzWJt6DKC63cBL+grsjYDjejTgcFUF9s1Q1JZss+kOrea3e4/0LFjV7qiRKOojOUVPMI8GUvyQQlBVzBaV/ZHTFMdm2f+dAg2TalEzWA8tq0g8uorWfbkmt0DoI4nBQCsVvtRC8rxbmfyXA3Qvmx/DB+3YEnYVz5cSamDLSTAH6mzGY/pq5rqs1kDajV9ghIw+MaPeuOTMXKPBHYNqKuQCBFOWvdP6h1hBWhOTUe5U/no68j68sRQClvlXbB5i5rxUL20UY/I0k+tznJ5qmkR8/g5E2332QrX/Pqc7jByt64o0VajHzvtUR10HXqKqHIkCuz1u3v1lxjXCk097SLz1tH+fbIBcdXfCTr4KVsXiI85g8/oPQ2z9DQk7zxjIUrnSDT3LSKQ=
+### 
+POST https://data.krx.co.kr/comm/fileDn/GenerateOTP/generate.cmd
+content-type: application/x-www-form-urlencoded; charset=UTF-8
+
+locale=ko_KR&tboxisuCd_finder_stkisu0_1=001045/CJ우&isuCd=001045&isuCd2=KR7005930003&codeNmisuCd_finder_stkisu0_1=CJ우&param1isuCd_finder_stkisu0_1=ALL&strtDd=20250824&endDd=20250924&adjStkPrc_check=Y&adjStkPrc=2&share=1&money=1&csvxls_isNo=false&name=fileDown&url=dbms/MDC/STAT/standard/MDCSTAT01701
+
+###
+POST https://data.krx.co.kr/comm/fileDn/download_excel/download.cmd
+content-type: application/x-www-form-urlencoded
+
+code=/bf7sPY4CDhSXa6rJ15NYIdxnixZfysYKotxlwZ2zJERtSksuLS7Bnxpl86F7dAOLBmklqtj8Qc/gCYt5OWSaRSZjie/DPxx05OlpeBxa0zXaSw1MeBk8qJlXEbjT+XnqQqHQsSF0H9fPawXEmvvjLMub5G+g0E8gvOdHF129+AZXlpC+1ux37W1yM6gr+THdlpNK6rYJIRZb/Nt9ZIP9OhCG7Of9Z3j2/rtvm7SmJuKHJ810dsIiNQfI+uJ4SpQqOgmuo344IKdIwxxHl+rVpYmE5R5FZcdPW19R+NNklt/rZFJ8s0dKmSL53oH+iH3zbeqkDln2Px+x/WpB1ZKfYKof5Zs8L6RBQ2Ot3NdrYBZmQ4CrVOBH8z6+gyj/oja4FyXgYmB8817hYQaadUXdN1hV9bWqqz7/PK1CL1ewBZZmQ4CrVOBH8z6+gyj/oja0fo+yrAIkCfaL2IhNJxbRl+CAKqoq4/AdvKE6oV3yA9TnmsqBLcA6rUtW5x8TOodrm+oFiP4Uv03GslB3IUKtLdw2xxG0JElgFvNx3Emn3S/wSwEBOVJ5G74DyaUwu+E

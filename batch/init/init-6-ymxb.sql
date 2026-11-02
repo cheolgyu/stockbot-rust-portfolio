@@ -1,0 +1,21 @@
+-- CREATE TABLE IF NOT EXISTS line.ymxb (
+--     code_id bigint NOT NULL,
+--     ymxb_type ymxb_type NOT NULL,
+--     p1x DATE NOT NULL,
+--     p1y numeric(7, 0) NOT NULL,
+--     p2x DATE NOT NULL,
+--     p2y numeric(7, 0) NOT NULL,
+--     x_cnt integer NOT NULL,
+--     y_cnt numeric(7, 0) NOT NULL,
+--     --
+--     ymxb_p3y numeric(15, 2) NOT NULL,
+--     ymxb_m numeric(15, 2) NOT NULL,
+--     ymxb_b numeric(15, 2) NOT NULL,
+--     --
+--     FOREIGN KEY (code_id) REFERENCES code (id),
+--     CONSTRAINT hist_rate_by_date_pk PRIMARY KEY(code_id, dt)
+-- );
+-- CREATE INDEX IF NOT EXISTS hist_rate_by_date_code_id_desc_idx ON hist.rate_by_date (code_id desc);
+-- CREATE INDEX IF NOT EXISTS hist_rate_by_date_code_id_asc_idx ON hist.rate_by_date (code_id asc);
+-- CREATE INDEX IF NOT EXISTS hist_rate_by_date_dt_desc_idx ON hist.rate_by_date (dt desc);
+-- CREATE INDEX IF NOT EXISTS hist_rate_by_date_dt_asc_idx ON hist.rate_by_date (dt asc);

@@ -1,0 +1,46 @@
+[package]
+name = "site"
+version = "0.1.0"
+edition = "2021"
+description = "Template for starting a Yew project using Trunk"
+readme = "README.md"
+repository = "https://github.com/yewstack/yew-trunk-minimal-template"
+license = "MIT OR Apache-2.0"
+keywords = ["yew", "trunk"]
+categories = ["gui", "wasm", "web-programming"]
+
+[[bin]]
+name = "bin"
+path = "src/main.rs"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[dependencies]
+batch_model = { path = "../batch_model", package = "batch_model", features = [
+  "site",
+] }
+
+dotenvy_macro = "0.15.7"
+yew = { version = "0.21.0", features = ["csr"] }
+gloo = "0.11.0"
+gloo-net = "0.6.0"
+gloo-console = "0.3.0"
+
+log = { version = "0.4", features = ["release_max_level_warn"] }
+wasm-logger = "0.2.0"
+serde = { version = "1.0", features = ["derive"] }
+
+wasm-bindgen = "0.2.88"
+wasm-bindgen-futures = "0.4"
+yew-router = "0.18.0"
+serde_json = "1.0"
+gloo-utils = "0.2.0"
+serde_urlencoded = "0.7"
+getrandom = { version = "0.2", features = ["js"] }
+num-format = { version = "0.4.3", features = ["with-serde"] }
+console_error_panic_hook = "0.1.7"
+chrono = { version = "0.4.20", features = ["serde"] }
+
+
+[dependencies.web-sys]
+version = "0.3"
+features = ["Event","EventListener", "Document", "console", "HtmlElement", "MouseEvent", "DomRect", "Headers", "Request", "RequestInit", "RequestMode", "Response", "Window", "CssStyleDeclaration", "HtmlSelectElement", "Crypto", "UrlSearchParams", "Text"]

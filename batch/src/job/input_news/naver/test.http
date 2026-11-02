@@ -1,0 +1,62 @@
+####->page =1
+@addr = https://search.naver.com/search.naver
+@params = &sm=tab_opt&sort=0&photo=0&field=0&pd=3&docid=&related=0&mynews=0&office_type=0&office_section_code=0&news_office_checked=&is_sug_officeid=0
+@search_text = 신성통상
+@sy = 2013
+@sm = 05
+@sd = 01
+@ey = 2013
+@em = 06
+@ed = 01
+# 1page =0, 2page = 11, 3page= 21, 4page= 31, ...
+@start = 01
+
+GET https://search.naver.com/search.naver?where=news&query={{search_text}}
+
+&ds={{sy}}.{{sm}}.{{sd}}&de={{ey}}.{{em}}.{{ed}}
+&nso=so%3Ar%2Cp%3Afrom{{sy}}{{sm}}{{sd}}to{{ey}}{{em}}{{ed}}
+&start=11
+#################################################################################
+#################################################################################
+#################################################################################
+->page =2
+https://search.naver.com/search.naver?where=news&sm=tab_pge&query={{search_text}}
+&sort=0&photo=0&field=0&pd=3&ds=2013.05.01&de=2013.06.01
+&cluster_rank=12&mynews=0&office_type=0&office_section_code=0&news_office_checked=
+&nso=so:r,p:from20130501to20130601,a:all&start=11
+
+->page =3
+https://search.naver.com/search.naver?where=news&sm=tab_pge&query={{search_text}}
+&sort=0&photo=0&field=0&pd=3&ds=2013.05.01&de=2013.06.01
+&cluster_rank=28&mynews=0&office_type=0&office_section_code=0
+&news_office_checked=&nso=so:r,p:from20130501to20130601,a:all&start=21
+
+->page =4
+https://search.naver.com/search.naver?where=news&sm=tab_pge&query={{search_text}}
+&sort=0&photo=0&field=0&pd=3&ds=2013.05.01&de=2013.06.01
+&cluster_rank=38&mynews=0&office_type=0&office_section_code=0&news_office_checked=
+&nso=so:r,p:from20130501to20130601,a:all&start=31
+
+->page =5
+https://search.naver.com/search.naver?where=news&sm=tab_pge&query={{search_text}}
+&sort=0&photo=0&field=0&pd=3&ds=2013.05.01&de=2013.06.01
+&cluster_rank=38&mynews=0&office_type=0&office_section_code=0&news_office_checked=
+&nso=so:r,p:from20130501to20130601,a:all&start=41
+
+->page =6
+https://search.naver.com/search.naver?where=news&sm=tab_pge&query={{search_text}}
+&sort=0&photo=0&field=0&pd=3&ds=2013.05.01&de=2013.06.01
+&cluster_rank=38&mynews=0&office_type=0&office_section_code=0&news_office_checked=
+&nso=so:r,p:from20130501to20130601,a:all&start=51
+
+->page =1
+https://search.naver.com/search.naver?where=news&sm=tab_pge&query={{search_text}}
+&sort=0&photo=0&field=0&pd=3&ds=2013.05.01&de=2013.06.01
+&cluster_rank=44&mynews=0&office_type=0&office_section_code=0&news_office_checked=
+&nso=so:r,p:from20130501to20130601,a:all&start=1
+
+#############
+https://search.naver.com/search.naver?where=news&query=한화솔루션
+&sm=tab_opt&sort=0&photo=0&field=0&pd=0&ds=&de=&docid=&related=0
+&mynews=1&office_type=1&office_section_code=1
+&news_office_checked=1005&nso=&is_sug_officeid=0

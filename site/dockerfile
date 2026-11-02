@@ -1,0 +1,45 @@
+FROM 000000000000.dkr.ecr.ap-northeast-2.amazonaws.com/stockbot-base:latest AS base
+RUN rustup target add wasm32-unknown-unknown && \
+    cargo install trunk 
+
+RUN apt update -y && apt install -y \
+    nodejs \
+    npm \
+    && npm install -g npx tailwindcss  && nodejs -v 
+
+ARG BACKEND_ADDR
+ENV BACKEND_ADDR=${BACKEND_ADDR}
+
+#########################################################
+#           sccache 
+#########################################################
+ARG SCCACHE_BUCKET
+ARG SCCACHE_S3_KEY_PREFIX
+ARG AWS_ACCESS_KEY_ID
+ARG AWS_SECRET_ACCESS_KEY
+ARG SCCACHE_REGION
+
+ENV SCCACHE_BUCKET=${SCCACHE_BUCKET}
+ENV SCCACHE_S3_KEY_PREFIX=${SCCACHE_S3_KEY_PREFIX}
+ENV AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+ENV AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+ENV SCCACHE_REGION=${SCCACHE_REGION}
+
+RUN export \
+    && sccache --version
+#########################################################
+
+WORKDIR /stockbot
+COPY site site 
+COPY site-common site-common
+COPY batch_model batch_model
+
+
+WORKDIR /stockbot/site 
+COPY ../.env.prod .env
+RUN chmod 777 ./script/build_tailwind.sh
+
+RUN trunk build --release
+
+
+

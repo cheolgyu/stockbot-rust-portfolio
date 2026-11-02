@@ -1,0 +1,19 @@
+[package]
+name = "batch_client"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+batch_model = { path = "../batch_model", package = "batch_model", features = [
+    "sqlx",
+] }
+serde_json = { version = "1.0.91", features = ["raw_value"] }
+utils = { path = "../utils", package = "utils", features = ["all"] }
+tokio = { version = "1.27.0", features = ["net", "macros"] }
+reqwest = { version = "0.11", default-features = false, features = [
+    "blocking",
+    "json",
+] }
+dotenvy = "0.15.7"

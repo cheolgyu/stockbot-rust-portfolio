@@ -1,0 +1,17 @@
+services:
+  db:
+    container_name: "db"
+    image: postgres:18.0
+    ports:
+      - "5432:5432"
+    environment:
+      TZ: Asia/Seoul
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD before local use}"
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    restart: always
+volumes:
+  pg-data:

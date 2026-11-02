@@ -1,0 +1,56 @@
+FROM 000000000000.dkr.ecr.ap-northeast-2.amazonaws.com/stockbot-base:latest-site-api AS base
+ARG SCCACHE_BUCKET
+ARG SCCACHE_S3_KEY_PREFIX
+ARG SCCACHE_REGION
+ARG AWS_ACCESS_KEY_ID
+ARG AWS_SECRET_ACCESS_KEY
+
+ENV SCCACHE_BUCKET=${SCCACHE_BUCKET}
+ENV SCCACHE_S3_KEY_PREFIX=${SCCACHE_S3_KEY_PREFIX}
+ENV AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+ENV AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+ENV SCCACHE_REGION=${SCCACHE_REGION}
+
+RUN export \
+    && sccache --version
+
+
+WORKDIR /stockbot
+COPY site-api site-api 
+COPY batch_model batch_model
+COPY site-common site-common
+COPY utils utils
+
+COPY .env.prod . 
+
+WORKDIR /stockbot/site-api 
+
+RUN cargo build --release --verbose --target aarch64-unknown-linux-gnu
+
+
+
+FROM arm64v8/ubuntu AS run
+ARG AWS_ACCESS_KEY_ID
+ARG AWS_SECRET_ACCESS_KEY
+ENV AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+ENV AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+
+
+
+#aws cli
+RUN apt-get update -y && apt-get install -y curl unzip less && curl "https://awscli.amazonaws.com/awscli-exe-linux-aarch64.zip" -o "awscliv2.zip" &&  unzip awscliv2.zip && ./aws/install && aws --version
+
+WORKDIR /root
+# no cache
+ARG CACHEBUST=1
+COPY --from=base /stockbot/site-api/target/aarch64-unknown-linux-gnu/release/site-api . 
+
+ADD .env.prod .env.prod 
+ADD site-api/script/ec2-start.sh ./ec2-start.sh
+ADD site-api/script/ec2-stop.sh ./ec2-stop.sh
+RUN  cat ./ec2-start.sh
+
+RUN chmod +x ./ec2-start.sh && chmod +x ./ec2-stop.sh 
+EXPOSE 80
+CMD [ "./site-api" ]
+
